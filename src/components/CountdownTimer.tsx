@@ -47,9 +47,9 @@ export const CountdownTimer: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-12 px-4 sm:px-6 max-w-4xl mx-auto text-center">
+    <section className="relative py-12 px-3 sm:px-6 max-w-4xl mx-auto text-center">
       {/* Container with gold border and ivory silk backdrop */}
-      <div className="relative rounded-[36px] royal-card border-2 border-[#D4AF37]/50 p-6 sm:p-10 shadow-xl overflow-hidden">
+      <div className="relative rounded-[32px] sm:rounded-[36px] royal-card border-2 border-[#D4AF37]/50 p-4 min-[380px]:p-6 sm:p-10 shadow-xl overflow-hidden">
         
         {/* Animated Gold Sweep Bar */}
         <div className="absolute top-0 inset-x-0 h-[2px] animate-gold-sweep" />
@@ -72,29 +72,29 @@ export const CountdownTimer: React.FC = () => {
           Until The Grand Wedding Day
         </h3>
         
-        <p className="font-serif-cormorant italic text-lg sm:text-xl text-[#3B5241] mb-8 font-semibold">
+        <p className="font-serif-cormorant italic text-lg sm:text-xl text-[#3B5241] mb-6 sm:mb-8 font-semibold">
           26 November 2026
         </p>
 
         {/* Countdown Digits Grid */}
-        <div className="grid grid-cols-4 gap-2.5 sm:gap-5 max-w-xl mx-auto">
+        <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-xl mx-auto w-full">
           {timeUnits.map((unit) => (
             <div
               key={unit.label}
-              className="relative flex flex-col items-center justify-center p-3.5 sm:p-6 rounded-2xl bg-gradient-to-b from-white to-[#FAF8F5] border border-[#D4AF37]/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+              className="relative flex flex-col items-center justify-center px-1 sm:px-3 py-3 sm:py-5 rounded-2xl bg-gradient-to-b from-white to-[#FAF8F5] border border-[#D4AF37]/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group min-w-0"
             >
               {/* Digit Box */}
-              <span className="font-display-cinzel text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#7A5716] tabular-nums drop-shadow-sm">
+              <span className="font-display-cinzel text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7A5716] tabular-nums drop-shadow-sm leading-tight">
                 {String(unit.value).padStart(2, '0')}
               </span>
               
-              {/* Unit Label */}
-              <span className="font-sans text-[10px] sm:text-xs font-bold tracking-widest text-[#3B5241] mt-2 uppercase">
+              {/* Unit Label - Properly fitted inside box across all mobile and desktop screens */}
+              <span className="font-sans text-[9px] min-[380px]:text-[10px] sm:text-xs font-bold tracking-tight min-[380px]:tracking-normal sm:tracking-widest text-[#3B5241] mt-1.5 sm:mt-2 uppercase w-full text-center truncate px-0.5">
                 {unit.label}
               </span>
 
               {/* Top gold accent line */}
-              <span className="absolute top-0 inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent group-hover:via-amber-400 transition-colors" />
+              <span className="absolute top-0 inset-x-2 sm:inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent group-hover:via-amber-400 transition-colors" />
             </div>
           ))}
         </div>
