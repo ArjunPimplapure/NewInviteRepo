@@ -241,7 +241,7 @@ export const WeddingScratchCard: React.FC = () => {
 
           {isScratched && (
             <div className="mt-3 animate-bounce inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#526E58]/10 text-[#3E5343] border border-[#526E58]/30 text-xs font-bold shadow-sm">
-              <span>✨ You are cordially invited to grace our celebrations! ✨</span>
+              <span> You are cordially invited </span>
             </div>
           )}
         </div>
