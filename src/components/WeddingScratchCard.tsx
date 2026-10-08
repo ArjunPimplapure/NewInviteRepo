@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import confetti from 'canvas-confetti';
-import { Sparkles, RotateCcw, Eye, Calendar } from 'lucide-react';
+import { RotateCcw, Eye, Calendar, Sparkles } from 'lucide-react';
 import { ASSETS } from '../config/assets';
 
 export const WeddingScratchCard: React.FC = () => {
@@ -8,26 +8,35 @@ export const WeddingScratchCard: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isScratched, setIsScratched] = useState(false);
   const [scratchPercent, setScratchPercent] = useState(0);
-  const [isDrawing, setIsDrawing] = useState(false);
+  const isDrawingRef = useRef(false);
+  const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const hasTriggeredCelebration = useRef(false);
 
   // Initialize Canvas Gold Foil Layer
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const rect = container.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    ctx.save();
     ctx.scale(dpr, dpr);
 
     const w = rect.width;
     const h = rect.height;
 
-    // 1. Champagne Gold Foil Gradient
+    // 1. Luxury Gold Foil Gradient
     const goldGradient = ctx.createLinearGradient(0, 0, w, h);
     goldGradient.addColorStop(0, '#C5A059');
     goldGradient.addColorStop(0.25, '#D4AF37');
@@ -42,13 +51,13 @@ export const WeddingScratchCard: React.FC = () => {
     ctx.strokeStyle = 'rgba(82, 110, 88, 0.4)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.38, 0, Math.PI * 2);
+    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.35, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.28, 0, Math.PI * 2);
+    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.26, 0, Math.PI * 2);
     ctx.stroke();
 
     // 3. Ornate Double Gold Border Frame
@@ -60,33 +69,60 @@ export const WeddingScratchCard: React.FC = () => {
     ctx.lineWidth = 1.2;
     ctx.strokeRect(14, 14, w - 28, h - 28);
 
-    // 4. Instructions text on the gold foil - Perfectly center-aligned
+    // 4. Instructions text on the gold foil - Responsive and clear
     ctx.fillStyle = '#241C1A';
-    const fontSize = Math.max(14, Math.min(18, Math.round(w * 0.042)));
+    const fontSize = Math.max(13, Math.min(18, Math.round(w * 0.045)));
     ctx.font = `800 ${fontSize}px "Cinzel", serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('SCRATCH TO REVEAL DATES', w / 2, h / 2);
+    ctx.fillText('SCRATCH TO REVEAL DATES', w / 2, h / 2 - 10);
+
+    ctx.font = `600 ${Math.max(11, Math.min(13, Math.round(w * 0.032)))}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillStyle = '#4A3B2C';
+    ctx.fillText('✨ Rub with finger or cursor ✨', w / 2, h / 2 + 15);
+
+    ctx.restore();
 
     setIsScratched(false);
     setScratchPercent(0);
     hasTriggeredCelebration.current = false;
+    lastPointRef.current = null;
+    isDrawingRef.current = false;
   }, []);
 
   useEffect(() => {
     initCanvas();
+
     const handleResize = () => {
-      if (!isScratched) initCanvas();
+      if (!isScratched) {
+        initCanvas();
+      }
     };
+
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    // ResizeObserver ensures canvas updates if container size adjusts on layout changes
+    let observer: ResizeObserver | null = null;
+    if (containerRef.current && window.ResizeObserver) {
+      observer = new ResizeObserver(() => {
+        if (!isScratched) {
+          initCanvas();
+        }
+      });
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (observer) observer.disconnect();
+    };
   }, [initCanvas, isScratched]);
 
   // Check scratch percentage
-  const checkScratchPercentage = () => {
+  const checkScratchPercentage = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
     try {
@@ -106,7 +142,7 @@ export const WeddingScratchCard: React.FC = () => {
       const percent = Math.min(100, Math.round((transparentCount / totalSampled) * 100));
       setScratchPercent(percent);
 
-      if (percent >= 35 && !hasTriggeredCelebration.current) {
+      if (percent >= 30 && !hasTriggeredCelebration.current) {
         hasTriggeredCelebration.current = true;
         setIsScratched(true);
         triggerGoldCelebration();
@@ -114,7 +150,7 @@ export const WeddingScratchCard: React.FC = () => {
     } catch {
       // Safe fallback
     }
-  };
+  }, []);
 
   const triggerGoldCelebration = () => {
     confetti({
@@ -126,56 +162,125 @@ export const WeddingScratchCard: React.FC = () => {
     });
   };
 
-  const scratchAt = (clientX: number, clientY: number) => {
+  const getCanvasPos = (clientX: number, clientY: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return null;
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+  };
+
+  const scratchAtPoint = (x: number, y: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    const x = (clientX - rect.left) * dpr;
-    const y = (clientY - rect.top) * dpr;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+    ctx.save();
+    ctx.scale(dpr, dpr);
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 24 * dpr, 0, Math.PI * 2);
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
 
     checkScratchPercentage();
   };
 
-  // Mouse Handlers
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    setIsDrawing(true);
-    scratchAt(e.clientX, e.clientY);
+  const scratchAlongStroke = (x: number, y: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 44;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (lastPointRef.current) {
+      ctx.beginPath();
+      ctx.moveTo(lastPointRef.current.x, lastPointRef.current.y);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    } else {
+      ctx.beginPath();
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    lastPointRef.current = { x, y };
+    checkScratchPercentage();
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing) return;
-    scratchAt(e.clientX, e.clientY);
+  // Pointer Handlers (Rock-solid unified handling for touch, mouse, and stylus)
+  const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // Ignore if pointer capture isn't supported
+    }
+    isDrawingRef.current = true;
+    const pos = getCanvasPos(e.clientX, e.clientY);
+    if (pos) {
+      lastPointRef.current = pos;
+      scratchAtPoint(pos.x, pos.y);
+    }
   };
 
-  const handleMouseUp = () => {
-    setIsDrawing(false);
+  const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!isDrawingRef.current) return;
+    const pos = getCanvasPos(e.clientX, e.clientY);
+    if (pos) {
+      scratchAlongStroke(pos.x, pos.y);
+    }
   };
 
-  // Touch Handlers for Mobile
+  const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    isDrawingRef.current = false;
+    lastPointRef.current = null;
+    try {
+      if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      }
+    } catch {
+      // Ignore
+    }
+  };
+
+  // Touch Handlers (Fallback for mobile browsers)
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    setIsDrawing(true);
     if (e.touches.length > 0) {
-      scratchAt(e.touches[0].clientX, e.touches[0].clientY);
+      isDrawingRef.current = true;
+      const pos = getCanvasPos(e.touches[0].clientX, e.touches[0].clientY);
+      if (pos) {
+        lastPointRef.current = pos;
+        scratchAtPoint(pos.x, pos.y);
+      }
     }
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    if (e.touches.length > 0) {
-      scratchAt(e.touches[0].clientX, e.touches[0].clientY);
+    if (isDrawingRef.current && e.touches.length > 0) {
+      const pos = getCanvasPos(e.touches[0].clientX, e.touches[0].clientY);
+      if (pos) {
+        scratchAlongStroke(pos.x, pos.y);
+      }
     }
   };
 
   const handleTouchEnd = () => {
-    setIsDrawing(false);
+    isDrawingRef.current = false;
+    lastPointRef.current = null;
   };
 
   const handleRevealAll = () => {
@@ -189,31 +294,25 @@ export const WeddingScratchCard: React.FC = () => {
   };
 
   return (
-    <section className="relative py-16 px-4 sm:px-6 max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-white/90 border border-[#D4AF37]/45 text-[#526E58] mb-3 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-[#B88E3E]" />
-          <span className="font-serif-cormorant text-xs sm:text-sm tracking-[0.25em] uppercase font-bold text-gold-light-gradient">
-            Royal Farmaan Reveal
-          </span>
-        </div>
+    <section className="relative py-12 sm:py-16 px-3 sm:px-6 max-w-xl mx-auto">
+      <div className="text-center mb-6 sm:mb-8">
         <h3 className="font-display-cinzel text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#241C1A] tracking-wide">
           Scratch Card Reveal
         </h3>
-        <p className="font-serif-cormorant italic text-base sm:text-lg text-[#3B5241] mt-1 font-semibold">
+        <p className="font-serif-cormorant italic text-sm sm:text-base md:text-lg text-[#3B5241] mt-1 font-semibold px-2">
           Rub below to reveal the sacred wedding dates of Priyanshu & Rupal
         </p>
       </div>
 
-      {/* Card Envelope Frame */}
+      {/* Card Frame - Mobile-friendly minimum height ensuring zero text clipping */}
       <div
         ref={containerRef}
-        className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-3xl overflow-hidden border-2 border-[#D4AF37]/70 shadow-2xl royal-card"
+        className="relative w-full min-h-[300px] sm:min-h-[330px] rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#D4AF37]/70 shadow-2xl royal-card select-none"
       >
         {/* UNDERNEATH LAYER (Revealed Wedding Dates in Ivory & Gold) */}
-        <div className="absolute inset-0 p-6 flex flex-col items-center justify-center text-center bg-gradient-to-b from-white via-[#FAF9F5] to-[#F2EFE8]">
-          {/* Watermarked monogram */}
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-[#D4AF37] mb-2 shadow-md bg-white">
+        <div className="absolute inset-0 p-4 sm:p-6 flex flex-col items-center justify-center text-center bg-gradient-to-b from-white via-[#FAF9F5] to-[#F2EFE8] overflow-hidden">
+          {/* Watermarked Monogram */}
+          <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#D4AF37] mb-1.5 sm:mb-2 shadow-md bg-white shrink-0">
             <img
               src={ASSETS.weddingLogo}
               alt="Priyanshu & Rupal Monogram"
@@ -222,26 +321,27 @@ export const WeddingScratchCard: React.FC = () => {
             />
           </div>
 
-          <p className="font-serif-cormorant text-xs sm:text-sm tracking-[0.3em] text-[#A67C1E] uppercase font-bold">
+          <p className="font-serif-cormorant text-[10px] sm:text-xs tracking-[0.25em] text-[#A67C1E] uppercase font-bold">
             SAVE THE AUSPICIOUS DATES
           </p>
 
-          <h4 className="font-display-cinzel text-2xl sm:text-3xl md:text-4xl font-extrabold text-gold-gradient tracking-wider mt-1">
+          <h4 className="font-display-cinzel text-xl sm:text-2xl md:text-3xl font-extrabold text-gold-gradient tracking-wider my-0.5 sm:my-1">
             25 & 26 NOVEMBER 2026
           </h4>
 
-          <p className="font-serif-cormorant italic text-lg sm:text-xl text-[#2C2523] font-medium mt-1">
+          <p className="font-serif-cormorant italic text-base sm:text-lg text-[#2C2523] font-semibold">
             Priyanshu Kocher & Rupal Jain
           </p>
 
-          <div className="flex items-center justify-center gap-2 mt-2 text-xs sm:text-sm text-[#526E58] font-sans font-medium">
-            <Calendar className="w-3.5 h-3.5 text-[#B88E3E]" />
-            <span>Raipur Greens, Cherrikherri, Raipur</span>
+          <div className="flex items-center justify-center gap-1.5 mt-1.5 sm:mt-2 text-xs sm:text-sm text-[#526E58] font-sans font-medium px-2">
+            <Calendar className="w-3.5 h-3.5 text-[#B88E3E] shrink-0" />
+            <span className="truncate">Raipur Greens, Cherrikherri, Raipur</span>
           </div>
 
           {isScratched && (
-            <div className="mt-3 animate-bounce inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#526E58]/10 text-[#3E5343] border border-[#526E58]/30 text-xs font-bold shadow-sm">
-              <span> You are cordially invited </span>
+            <div className="mt-2.5 sm:mt-3 animate-bounce inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#526E58]/10 text-[#3E5343] border border-[#526E58]/30 text-[11px] sm:text-xs font-bold shadow-sm">
+              <Sparkles className="w-3 h-3 text-[#B88E3E] shrink-0" />
+              <span>You are cordially invited to grace our celebrations!</span>
             </div>
           )}
         </div>
@@ -250,28 +350,29 @@ export const WeddingScratchCard: React.FC = () => {
         {!isScratched && (
           <canvas
             ref={canvasRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            className="absolute inset-0 w-full h-full cursor-pointer touch-none z-10"
-            style={{ width: '100%', height: '100%' }}
+            className="absolute inset-0 w-full h-full cursor-pointer touch-none z-10 block"
+            style={{ touchAction: 'none' }}
           />
         )}
       </div>
 
       {/* Progress & Controls */}
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 px-2">
+      <div className="mt-4 sm:mt-5 flex items-center justify-between gap-3 px-1 sm:px-2">
         <div className="flex items-center gap-2">
           {!isScratched ? (
             <span className="text-xs sm:text-sm font-sans text-[#5C544E]">
               Scratched: <strong className="text-[#A67C1E] font-bold">{scratchPercent}%</strong>
             </span>
           ) : (
-            <span className="text-xs sm:text-sm font-bold text-[#3E5343] flex items-center gap-1.5">
-              <span>✓</span> Dates Successfully Revealed!
+            <span className="text-xs sm:text-sm font-bold text-[#3E5343] flex items-center gap-1">
+              <span>✓</span> Dates Revealed!
             </span>
           )}
         </div>
@@ -279,16 +380,18 @@ export const WeddingScratchCard: React.FC = () => {
         <div className="flex items-center gap-2">
           {!isScratched ? (
             <button
+              type="button"
               onClick={handleRevealAll}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-[#F7F6F2] border border-[#D4AF37]/60 text-[#2C2523] text-xs font-bold transition-all shadow-sm focus:outline-none"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white hover:bg-[#F7F6F2] active:scale-95 border border-[#D4AF37]/60 text-[#2C2523] text-xs font-bold transition-all shadow-sm focus:outline-none"
             >
               <Eye className="w-3.5 h-3.5 text-[#B88E3E]" />
               <span>Reveal Now</span>
             </button>
           ) : (
             <button
+              type="button"
               onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-[#F7F6F2] border border-[#D4AF37]/60 text-[#2C2523] text-xs font-bold transition-all shadow-sm focus:outline-none"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white hover:bg-[#F7F6F2] active:scale-95 border border-[#D4AF37]/60 text-[#2C2523] text-xs font-bold transition-all shadow-sm focus:outline-none"
             >
               <RotateCcw className="w-3.5 h-3.5 text-[#B88E3E]" />
               <span>Scratch Again</span>
