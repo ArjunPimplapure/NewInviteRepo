@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-display: 'Cinzel', serif;
+    --font-script: 'Alex Brush', cursive;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+    /* Botanical Gold Arch Luxury Wedding Palette (Matching Reference) */
+    --ivory-canvas: #F9F9F6;
+    --ivory-card: #FFFFFF;
+    --ivory-warm: #F4F3EE;
+    --sage-deep: #3E5343;
+    --sage-primary: #526E58;
+    --sage-soft: #6B8A72;
+    --sage-mist: #DDE5DC;
+    --gold-antique: #8A641E;
+    --gold-primary: #B88E3E;
+    --gold-bright: #D4AF37;
+    --gold-champagne: #F5E0A0;
+    --gold-shimmer: #FFF2CC;
+    --text-charcoal: #2C2523;
+    --text-muted: #5C544E;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: #F7F6F2;
+    color: #2C2523;
+  }
+}
+
+/* Custom font utility classes */
+.font-serif-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-display-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-script-alex {
+  font-family: 'Alex Brush', cursive;
+}
+
+.font-sans-clean {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* Luxury Warm Gold Text Gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #7A5716 0%, #B88E3E 35%, #D4AF37 60%, #8A641E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-light-gradient {
+  background: linear-gradient(135deg, #8A641E 0%, #D4AF37 40%, #B88E3E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Reference Theme: Botanical Ivory & Sage Watercolor Backdrop */
+.botanical-watercolor-backdrop {
+  background-color: #F7F6F2;
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(107, 138, 114, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 90% 25%, rgba(107, 138, 114, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 15% 85%, rgba(107, 138, 114, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(247, 246, 242, 0.9) 100%);
+  background-attachment: fixed;
+}
+
+/* Luxury Wedding Card Container - Translucent Ivory Silk & Gold Trim */
+.royal-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(249, 248, 244, 0.94) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 
+    0 15px 35px -5px rgba(44, 37, 35, 0.07),
+    0 0 25px -2px rgba(184, 142, 62, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+}
+
+/* Reference Image Gold Cathedral Arch Frame */
+.arch-cathedral {
+  border-radius: 200px 200px 32px 32px;
+}
+
+@media (max-width: 640px) {
+  .arch-cathedral {
+    border-radius: 120px 120px 24px 24px;
+  }
+}
+
+/* Hanging Bells Sway Animation */
+@keyframes bellSway {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(4deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-bell-sway {
+  transform-origin: top center;
+  animation: bellSway 5s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-bell-sway-delayed {
+  transform-origin: top center;
+  animation: bellSway 5.5s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -2.5s;
+}
+
+/* Gold Sweep Sheen */
+@keyframes goldSweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-gold-sweep {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0) 0%,
+    rgba(212, 175, 55, 0.55) 50%,
+    rgba(212, 175, 55, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: goldSweep 4.5s ease-in-out infinite;
+}
+
+/* 3D Perspective Utilities */
+.perspective-1400 {
+  perspective: 1400px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
