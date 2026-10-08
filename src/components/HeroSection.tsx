@@ -92,7 +92,7 @@ export const HeroSection: React.FC = () => {
               <div className="w-full h-full rounded-xl overflow-hidden border border-[#D4AF37]/40 bg-white shadow-inner flex items-center justify-center p-2.5">
                 <img
                   src={ASSETS.weddingLogo}
-                  alt="Priyanshu & Rupal Wedding Monogram"
+                  alt="Priyanshu & Roopal Wedding Monogram"
                   className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
@@ -116,7 +116,10 @@ export const HeroSection: React.FC = () => {
               <span className="text-gold-gradient drop-shadow-sm">{WEDDING_DATA.groom.name}</span>
             </h1>
             <p className="font-serif-cormorant italic text-base sm:text-lg text-[#3B5241] tracking-wide font-semibold">
-              S/o {WEDDING_DATA.groom.father}
+              {WEDDING_DATA.groom.grandsonOf}
+            </p>
+            <p className="font-serif-cormorant italic text-base sm:text-lg text-[#3B5241] tracking-wide font-semibold">
+              {WEDDING_DATA.groom.parentalText}
             </p>
           </div>
 
@@ -139,6 +142,9 @@ export const HeroSection: React.FC = () => {
               <span className="text-gold-gradient drop-shadow-sm">{WEDDING_DATA.bride.name}</span>
             </h2>
             <p className="font-serif-cormorant italic text-base sm:text-lg text-[#3B5241] tracking-wide font-semibold">
+              {WEDDING_DATA.bride.grandDaughterOf}
+            </p>
+            <p className="font-serif-cormorant italic text-base sm:text-lg text-[#3B5241] tracking-wide font-semibold">
               {WEDDING_DATA.bride.parentalText}
             </p>
           </div>
@@ -156,7 +162,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Heartfelt Wedding Invitation Message */}
-        <div className="max-w-xl mx-auto text-center px-4 relative z-10">
+        <div className="max-w-xl mx-auto text-center px-4 pb-2 relative z-10">
           <blockquote className="font-serif-cormorant text-lg sm:text-xl md:text-2xl leading-relaxed text-[#241C1A] italic font-medium">
             "{WEDDING_DATA.invitationMessage}"
           </blockquote>
@@ -165,13 +171,111 @@ export const HeroSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Date Anchor Plaque with Sage & Gold styling */}
-        <div className="mt-8 pt-6 border-t border-[#D4AF37]/35 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-[#3A332E] font-sans relative z-10">
-          <span className="font-bold text-[#241C1A] tracking-wide">25 & 26 November 2026</span>
-          <span className="text-[#D4AF37]">·</span>
-          <span className="text-[#3B5241] font-semibold">Raipur Greens, Raipur</span>
-          <span className="text-[#D4AF37]">·</span>
-          <span className="font-serif-cormorant italic font-bold text-[#7A5716]">The Kocher Family</span>
+      </div>
+
+      {/* NEW SECOND PAGE: Blessings of Bua Marasahab & Dadi Marasahab (Same size and boundaries) */}
+      <div className="relative w-full max-w-3xl mx-auto p-8 sm:p-14 md:p-16 rounded-[48px] sm:rounded-[64px] royal-card border-2 sm:border-[2.5px] border-[#D4AF37]/75 shadow-2xl overflow-hidden mt-8 sm:mt-10">
+        
+        {/* Pure subtle watercolor wash backdrop */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/95 via-white/70 to-[#F9F8F5]/95" />
+
+        {/* Animated Gold Foil Highlight Sweep across top arch border */}
+        <div className="absolute top-0 inset-x-0 h-[2.5px] animate-gold-sweep" />
+
+        {/* Inner Arch Frame line with rounded top */}
+        <div className="absolute inset-3 sm:inset-5 border border-[#D4AF37]/40 rounded-[38px] sm:rounded-[52px] pointer-events-none" />
+
+        {/* Botanical Foliage Accents in Corners */}
+        <div className="absolute top-0 right-0 p-3 sm:p-5 select-none pointer-events-none">
+          <svg className="w-20 h-20 sm:w-32 sm:h-32 text-[#526E58]" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M90,10 Q65,15 55,35 Q75,30 90,10 Z" fill="#6B8A72" opacity="0.85" />
+            <path d="M75,5 Q50,20 50,45 Q70,35 75,5 Z" fill="#88A788" opacity="0.75" />
+            <path d="M95,25 Q80,50 60,55 Q75,40 95,25 Z" fill="#526E58" opacity="0.9" />
+            <path d="M85,18 Q60,25 65,50" stroke="#D4AF37" strokeWidth="1.8" fill="none" />
+            <circle cx="65" cy="50" r="3" fill="#D4AF37" />
+          </svg>
+        </div>
+
+        <div className="absolute top-0 left-0 p-3 sm:p-5 select-none pointer-events-none">
+          <svg className="w-16 h-16 sm:w-24 sm:h-24 text-[#D4AF37]" viewBox="0 0 80 80" fill="none" stroke="currentColor">
+            <path d="M10,10 Q25,15 30,35" strokeWidth="1.5" />
+            <ellipse cx="22" cy="20" rx="4" ry="8" transform="rotate(-30 22 20)" fill="#D4AF37" opacity="0.8" />
+            <ellipse cx="32" cy="32" rx="4" ry="7" transform="rotate(-15 32 32)" fill="#88A788" opacity="0.7" />
+          </svg>
+        </div>
+
+        <div className="absolute bottom-0 left-0 p-3 sm:p-5 select-none pointer-events-none">
+          <svg className="w-20 h-20 sm:w-32 sm:h-32 text-[#526E58]" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M10,90 Q35,85 45,65 Q25,70 10,90 Z" fill="#6B8A72" opacity="0.85" />
+            <path d="M25,95 Q50,80 50,55 Q30,65 25,95 Z" fill="#88A788" opacity="0.75" />
+            <path d="M5,75 Q20,50 40,45 Q25,60 5,75 Z" fill="#526E58" opacity="0.9" />
+            <path d="M15,82 Q40,75 35,50" stroke="#D4AF37" strokeWidth="1.8" fill="none" />
+            <circle cx="35" cy="50" r="3" fill="#D4AF37" />
+          </svg>
+        </div>
+
+        <div className="absolute bottom-0 right-0 p-3 sm:p-5 select-none pointer-events-none">
+          <svg className="w-16 h-16 sm:w-24 sm:h-24 text-[#D4AF37]" viewBox="0 0 80 80" fill="none" stroke="currentColor">
+            <path d="M70,70 Q55,65 50,45" strokeWidth="1.5" />
+            <ellipse cx="58" cy="60" rx="4" ry="8" transform="rotate(30 58 60)" fill="#D4AF37" opacity="0.8" />
+            <ellipse cx="48" cy="48" rx="4" ry="7" transform="rotate(15 48 48)" fill="#88A788" opacity="0.7" />
+          </svg>
+        </div>
+
+        {/* Center-aligned Sacred Blessings Content */}
+        <div className="relative z-10 text-center py-6 sm:py-8 px-4 flex flex-col items-center justify-center">
+          
+          <div className="inline-flex items-center justify-center gap-3 mb-3">
+            <span className="text-[#D4AF37] text-sm">✦</span>
+            <span className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+            <span className="text-[#526E58] text-xs">🌿</span>
+            <span className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+            <span className="text-[#D4AF37] text-sm">✦</span>
+          </div>
+
+          <h2 className="font-serif-cormorant italic text-2xl sm:text-3xl md:text-4xl text-[#7A5716] font-bold tracking-wide">
+            With blessings of
+          </h2>
+
+          <div className="flex items-center justify-center gap-3 mt-3 mb-8 sm:mb-10">
+            <span className="h-[1.5px] w-14 bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
+            <span className="text-[#526E58] text-xs">❖</span>
+            <span className="h-[1.5px] w-14 bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
+          </div>
+
+          {/* Bua Marasahab & Varagya Nidhi Shri Ji Marasahab */}
+          <div className="space-y-1.5 sm:space-y-2 mb-8 sm:mb-10">
+            <h3 className="font-display-cinzel text-xl sm:text-2xl md:text-3xl font-extrabold text-[#241C1A] tracking-wider">
+              Bua Marasahab
+            </h3>
+            <p className="font-serif-cormorant text-xl sm:text-2xl md:text-3xl text-gold-gradient font-bold tracking-wide">
+              Varagya Nidhi Shri Ji Marasahab
+            </p>
+          </div>
+
+          {/* Ornamental Floral Divider */}
+          <div className="flex items-center justify-center gap-4 my-2 sm:my-3">
+            <span className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent to-[#D4AF37]/70" />
+            <span className="text-xl font-serif-cormorant text-[#526E58]">❦</span>
+            <span className="h-[1px] w-16 sm:w-24 bg-gradient-to-l from-transparent to-[#D4AF37]/70" />
+          </div>
+
+          {/* Dadi Marasahab & Jayna Shri Ji Marasahab */}
+          <div className="space-y-1.5 sm:space-y-2 mt-6 sm:mt-8">
+            <h3 className="font-display-cinzel text-xl sm:text-2xl md:text-3xl font-extrabold text-[#241C1A] tracking-wider">
+              Dadi Marasahab
+            </h3>
+            <p className="font-serif-cormorant text-xl sm:text-2xl md:text-3xl text-gold-gradient font-bold tracking-wide">
+              Jayna Shri Ji Marasahab
+            </p>
+          </div>
+
+          <div className="flex items-center justify-center gap-3 mt-8 sm:mt-10">
+            <span className="h-[1px] w-12 bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
+            <span className="text-[#D4AF37] text-xs">✦</span>
+            <span className="h-[1px] w-12 bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
+          </div>
+
         </div>
 
       </div>
@@ -179,7 +283,7 @@ export const HeroSection: React.FC = () => {
       {/* Downward Scroll Indicator */}
       <a
         href="#events"
-        className="mt-8 flex flex-col items-center gap-1.5 text-[#526E58] hover:text-[#241C1A] transition-colors focus:outline-none group"
+        className="mt-8 sm:mt-10 flex flex-col items-center gap-1.5 text-[#526E58] hover:text-[#241C1A] transition-colors focus:outline-none group"
         aria-label="Scroll down to view wedding events schedule"
       >
         <span className="font-serif-cormorant text-xs tracking-[0.25em] uppercase font-bold text-gold-light-gradient">

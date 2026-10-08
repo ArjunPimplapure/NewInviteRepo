@@ -1,6 +1,6 @@
-# 💍 Priyanshu & Rupal Wedding Invitation Website
+# 💍 Priyanshu & Roopal Wedding Invitation Website
 
-A luxury digital royal Indian wedding invitation for **Priyanshu Kocher & Rupal Jain** celebrating on **25 & 26 November 2026** at **Raipur Greens, Raipur**.
+A luxury digital royal Indian wedding invitation for **Priyanshu Kocher & Roopal Jain** celebrating on **25 & 26 November 2026** at **Raipur Greens, Raipur**.
 
 ---
 

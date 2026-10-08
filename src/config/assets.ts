@@ -20,7 +20,7 @@ import sealImg from '../assets/images/burgundy_wax_seal_1790881686872.jpg';
 import bgImg from '../assets/images/royal_invitation_bg_1790881698547.jpg';
 import heavyBgImg from '../assets/images/royal_heavy_wedding_bg_1790890440766.jpg';
 import botanicalArchBg from '../assets/images/clean_botanical_arch_1791415421217.jpg';
-import royalDoorsImg from '../assets/images/realistic_botanical_door_1791417865109.jpg';
+import royalDoorsImg from '../assets/images/palace_carved_doors_1791473373751.jpg';
 
 // Event AI Generated Visuals (Updated & Trendy Sangeet Night)
 import carnivalImg from '../assets/images/event_carnival_fest_1790890821071.jpg';
@@ -63,6 +63,6 @@ export const ASSETS = {
   backgroundMusicWav: `${cleanBase}audio/wedding_music.wav`,
   
   // Track details shown in the floating player tooltip
-  musicTitle: 'Priyanshu & Rupal Wedding Song',
+  musicTitle: 'Priyanshu & Roopal Wedding Song',
   musicArtist: 'Romantic Wedding Soundtrack (Uploaded Audio)',
 };

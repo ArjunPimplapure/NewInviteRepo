@@ -300,7 +300,7 @@ export const WeddingScratchCard: React.FC = () => {
           Scratch Card Reveal
         </h3>
         <p className="font-serif-cormorant italic text-sm sm:text-base md:text-lg text-[#3B5241] mt-1 font-semibold px-2">
-          Rub below to reveal the sacred wedding dates of Priyanshu & Rupal
+          Rub below to reveal the sacred wedding dates of Priyanshu & Roopal
         </p>
       </div>
 
@@ -315,7 +315,7 @@ export const WeddingScratchCard: React.FC = () => {
           <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#D4AF37] mb-1.5 sm:mb-2 shadow-md bg-white shrink-0">
             <img
               src={ASSETS.weddingLogo}
-              alt="Priyanshu & Rupal Monogram"
+              alt="Priyanshu & Roopal Monogram"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
@@ -330,7 +330,7 @@ export const WeddingScratchCard: React.FC = () => {
           </h4>
 
           <p className="font-serif-cormorant italic text-base sm:text-lg text-[#2C2523] font-semibold">
-            Priyanshu Kocher & Rupal Jain
+            Priyanshu Kocher & Roopal Jain
           </p>
 
           <div className="flex items-center justify-center gap-1.5 mt-1.5 sm:mt-2 text-xs sm:text-sm text-[#526E58] font-sans font-medium px-2">

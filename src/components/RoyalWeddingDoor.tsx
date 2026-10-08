@@ -194,41 +194,7 @@ export const RoyalWeddingDoor: React.FC<RoyalWeddingDoorProps> = ({ onOpenComple
         </div>
 
         {/* =============================================================== */}
-        {/* 3. BOTANICAL CORNER FOLIAGE (MATCHING INVITATION THEME)         */}
-        {/* =============================================================== */}
-        {/* Top-Right Eucalyptus & Golden Sprig */}
-        <div className="absolute top-2 right-2 p-2 select-none pointer-events-none z-30 opacity-90">
-          <svg className="w-20 h-20 sm:w-28 sm:h-28 text-[#526E58]" viewBox="0 0 100 100" fill="currentColor">
-            <path d="M90,10 Q65,15 55,35 Q75,30 90,10 Z" fill="#6B8A72" opacity="0.85" />
-            <path d="M75,5 Q50,20 50,45 Q70,35 75,5 Z" fill="#88A788" opacity="0.75" />
-            <path d="M95,25 Q80,50 60,55 Q75,40 95,25 Z" fill="#526E58" opacity="0.9" />
-            <path d="M85,18 Q60,25 65,50" stroke="#D4AF37" strokeWidth="1.8" fill="none" />
-            <circle cx="65" cy="50" r="3" fill="#D4AF37" />
-          </svg>
-        </div>
-
-        {/* Top-Left Delicate Golden Leaves */}
-        <div className="absolute top-2 left-2 p-2 select-none pointer-events-none z-30 opacity-90">
-          <svg className="w-16 h-16 sm:w-22 sm:h-22 text-[#D4AF37]" viewBox="0 0 80 80" fill="none" stroke="currentColor">
-            <path d="M10,10 Q25,15 30,35" strokeWidth="1.5" />
-            <ellipse cx="22" cy="20" rx="4" ry="8" transform="rotate(-30 22 20)" fill="#D4AF37" opacity="0.8" />
-            <ellipse cx="32" cy="32" rx="4" ry="7" transform="rotate(-15 32 32)" fill="#88A788" opacity="0.7" />
-          </svg>
-        </div>
-
-        {/* Bottom-Left Sage Leaves & Copper Twig */}
-        <div className="absolute bottom-2 left-2 p-2 select-none pointer-events-none z-30 opacity-90">
-          <svg className="w-20 h-20 sm:w-28 sm:h-28 text-[#526E58]" viewBox="0 0 100 100" fill="currentColor">
-            <path d="M10,90 Q35,85 45,65 Q25,70 10,90 Z" fill="#6B8A72" opacity="0.85" />
-            <path d="M25,95 Q50,80 50,55 Q30,65 25,95 Z" fill="#88A788" opacity="0.75" />
-            <path d="M5,75 Q20,50 40,45 Q25,60 5,75 Z" fill="#526E58" opacity="0.9" />
-            <path d="M15,82 Q40,75 35,50" stroke="#D4AF37" strokeWidth="1.8" fill="none" />
-            <circle cx="35" cy="50" r="3" fill="#D4AF37" />
-          </svg>
-        </div>
-
-        {/* =============================================================== */}
-        {/* 4. TOP SACRED INVOCATION BANNER: "श्री महावीराय नमः" (NO SPACES)    */}
+        {/* 3. TOP SACRED INVOCATION BANNER: "श्री महावीराय नमः" (NO SPACES)    */}
         {/* =============================================================== */}
         <div className="absolute top-5 sm:top-7 inset-x-0 text-center z-40 pointer-events-none">
           <div className="inline-flex items-center gap-2 px-6 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#D4AF37]/80 shadow-md">

@@ -10,7 +10,7 @@ interface ClosingSectionProps {
 export const ClosingSection: React.FC<ClosingSectionProps> = ({ onReplayInvitation }) => {
   const handleWhatsAppWishes = () => {
     const text = encodeURIComponent(
-      `Heartiest Congratulations Priyanshu & Rupal! We are delighted to receive your wedding invitation and look forward to celebrating with the Kocher family on 25 & 26 November 2026 at Raipur Greens.`
+      `Heartiest Congratulations Priyanshu & Roopal! We are delighted to receive your wedding invitation and look forward to celebrating with the Kocher family on 25 & 26 November 2026 at Raipur Greens.`
     );
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
@@ -18,8 +18,8 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onReplayInvitati
   const handleShareInvitation = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Priyanshu & Rupal Wedding Invitation',
-        text: 'You are cordially invited to celebrate the wedding of Priyanshu Kocher & Rupal Jain on 25 & 26 November 2026 at Raipur Greens, Raipur.',
+        title: 'Priyanshu & Roopal Wedding Invitation',
+        text: 'You are cordially invited to celebrate the wedding of Priyanshu Kocher & Roopal Jain on 25 & 26 November 2026 at Raipur Greens, Raipur.',
         url: window.location.href,
       }).catch(() => {
         // User cancelled share
@@ -27,7 +27,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onReplayInvitati
     } else {
       const shareUrl = encodeURIComponent(window.location.href);
       const text = encodeURIComponent(
-        `Wedding Invitation: Priyanshu Kocher & Rupal Jain\n25 & 26 November 2026 | Raipur Greens, Raipur\nView Invitation: `
+        `Wedding Invitation: Priyanshu Kocher & Roopal Jain\n25 & 26 November 2026 | Raipur Greens, Raipur\nView Invitation: `
       );
       window.open(`https://wa.me/?text=${text}${shareUrl}`, '_blank');
     }
@@ -65,7 +65,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onReplayInvitati
           <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl p-2.5 border-2 border-[#D4AF37] bg-white shadow-xl flex items-center justify-center">
             <img
               src={ASSETS.weddingLogo}
-              alt="Priyanshu & Rupal Monogram"
+              alt="Priyanshu & Roopal Monogram"
               className="w-full h-full object-contain bg-white"
               referrerPolicy="no-referrer"
             />

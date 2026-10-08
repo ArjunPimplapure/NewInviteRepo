@@ -22,15 +22,19 @@ export interface WeddingEvent {
 export const WEDDING_DATA = {
   groom: {
     name: 'Priyanshu Kocher',
+    grandsonOf: 'Grandson of Shri Motilal Ji Kocher',
+    parentalText: 'S/o Shri Mahendra Kocher & Smt Dimple Kocher',
     father: 'Shri Mahendra Kocher',
+    mother: 'Smt Dimple Kocher',
     family: 'The Kocher Family',
     side: "Groom's Side",
   },
   bride: {
-    name: 'Rupal Jain',
-    father: 'Shri Rupchand Ji Bohra',
-    mother: 'Smt. Neeta Ji Bohra',
-    parentalText: 'D/o Shri Rupchand Ji Bohra & Smt. Neeta Ji Bohra',
+    name: 'Roopal Jain',
+    grandDaughterOf: 'Grand Daughter of Shri Mohan Lal Ji Bohra & Smt. Geeta Bai Bohra',
+    parentalText: 'D/o Shri Roopchand Ji Bohra & Smt. Nita Bohra',
+    father: 'Shri Roopchand Ji Bohra',
+    mother: 'Smt. Nita Bohra',
     family: 'The Bohra Family',
     side: "Bride's Side",
   },
@@ -40,7 +44,7 @@ export const WEDDING_DATA = {
   invitationMessage:
     'With hearts full of joy and the blessings of our loved ones, we invite you to celebrate the beginning of a beautiful new journey.',
   invitationNote:
-    'The Kocher family cordially requests the honour of your auspicious presence and blessings to grace the joyous wedding festivities of their beloved son Priyanshu with Rupal.',
+    'The Kocher family cordially requests the honour of your auspicious presence and blessings to grace the joyous wedding festivities of their beloved son Priyanshu with Roopal.',
   
   targetCountdownDate: '2026-11-26T10:00:00+05:30', // Baarat & Wedding Day start
 
@@ -53,7 +57,7 @@ export const WEDDING_DATA = {
         {
           id: 'carnival',
           name: 'CARNIVAL',
-          time: '9:00 AM',
+          time: '10:30 AM',
           date: '25 November 2026',
           dateKey: 'day1',
           description: 'A vibrant morning filled with cheerful music, festivities, colors, and celebratory games.',
@@ -141,9 +145,15 @@ export const WEDDING_DATA = {
     landmarkTip: '',
   },
 
+  rsvp: [
+    { name: 'Shri Mahendra Kocher', phone: '+91- 99930 05310', tel: '+919993005310' },
+    { name: 'Shri Abhay Kocher', phone: '+91- 98271 47744', tel: '+919827147744' },
+    { name: 'Divyansh Kocher', phone: '+91- 93401 36544', tel: '+919340136544' },
+  ],
+
   closing: {
     heartfeltQuote: 'Your presence will make our celebration even more special.',
-    coupleNames: 'Priyanshu & Rupal',
+    coupleNames: 'Priyanshu & Roopal',
     familySignature: 'With love,\nThe Kocher Family',
     greetings: 'Warm regards & Best Compliments from Near & Dear Ones',
   },

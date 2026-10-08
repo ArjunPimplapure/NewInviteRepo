@@ -101,7 +101,7 @@ export const CountdownTimer: React.FC = () => {
 
         <div className="mt-7 flex items-center justify-center gap-2 text-xs sm:text-sm text-[#3A332E] font-serif-cormorant italic font-medium">
           <span className="text-[#526E58] select-none">🌿</span>
-          <span>Celebrating the eternal union of Priyanshu & Rupal</span>
+          <span>Celebrating the eternal union of Priyanshu & Roopal</span>
           <span className="text-[#526E58] select-none">🌿</span>
         </div>
 

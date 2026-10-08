@@ -150,7 +150,7 @@ export const LuxuryEnvelope: React.FC<LuxuryEnvelopeProps> = ({ onOpenComplete }
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#D4AF37] mb-2.5 shadow-md">
                 <img
                   src={ASSETS.weddingLogo}
-                  alt="Priyanshu & Rupal Monogram"
+                  alt="Priyanshu & Roopal Monogram"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -159,7 +159,7 @@ export const LuxuryEnvelope: React.FC<LuxuryEnvelopeProps> = ({ onOpenComplete }
                 The Auspicious Wedding Of
               </p>
               <h2 className="font-display-cinzel text-lg sm:text-xl font-bold text-[#2A050B] tracking-wide mt-0.5">
-                Priyanshu & Rupal
+                Priyanshu & Roopal
               </h2>
               <p className="font-sans text-[11px] font-semibold text-[#8A641E] mt-1">25 & 26 November 2026</p>
             </div>
@@ -229,7 +229,7 @@ export const LuxuryEnvelope: React.FC<LuxuryEnvelopeProps> = ({ onOpenComplete }
                 <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-[#D4AF37] flex items-center justify-center bg-[#540A15] shadow-inner">
                   <img
                     src={ASSETS.waxSeal}
-                    alt="Priyanshu & Rupal Royal Wax Seal"
+                    alt="Priyanshu & Roopal Royal Wax Seal"
                     className="w-full h-full object-cover mix-blend-screen scale-110"
                     referrerPolicy="no-referrer"
                   />
