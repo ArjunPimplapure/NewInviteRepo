@@ -11,6 +11,8 @@ export const WeddingScratchCard: React.FC = () => {
   const isDrawingRef = useRef(false);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const hasTriggeredCelebration = useRef(false);
+  const isScratchedRef = useRef(isScratched);
+  isScratchedRef.current = isScratched;
 
   // Initialize Canvas Gold Foil Layer
   const initCanvas = useCallback(() => {
@@ -29,6 +31,11 @@ export const WeddingScratchCard: React.FC = () => {
 
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
+
+    // Reset transform & composite mode before clearing and redrawing
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'source-over';
 
     ctx.save();
     ctx.scale(dpr, dpr);
@@ -94,7 +101,7 @@ export const WeddingScratchCard: React.FC = () => {
     initCanvas();
 
     const handleResize = () => {
-      if (!isScratched) {
+      if (!isScratchedRef.current) {
         initCanvas();
       }
     };
@@ -105,7 +112,7 @@ export const WeddingScratchCard: React.FC = () => {
     let observer: ResizeObserver | null = null;
     if (containerRef.current && window.ResizeObserver) {
       observer = new ResizeObserver(() => {
-        if (!isScratched) {
+        if (!isScratchedRef.current) {
           initCanvas();
         }
       });
@@ -116,7 +123,7 @@ export const WeddingScratchCard: React.FC = () => {
       window.removeEventListener('resize', handleResize);
       if (observer) observer.disconnect();
     };
-  }, [initCanvas, isScratched]);
+  }, [initCanvas]);
 
   // Check scratch percentage
   const checkScratchPercentage = useCallback(() => {
@@ -290,6 +297,11 @@ export const WeddingScratchCard: React.FC = () => {
   };
 
   const handleReset = () => {
+    setIsScratched(false);
+    setScratchPercent(0);
+    hasTriggeredCelebration.current = false;
+    lastPointRef.current = null;
+    isDrawingRef.current = false;
     initCanvas();
   };
 
@@ -347,20 +359,20 @@ export const WeddingScratchCard: React.FC = () => {
         </div>
 
         {/* TOP SCRATCHABLE GOLD CANVAS LAYER */}
-        {!isScratched && (
-          <canvas
-            ref={canvasRef}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            className="absolute inset-0 w-full h-full cursor-pointer touch-none z-10 block"
-            style={{ touchAction: 'none' }}
-          />
-        )}
+        <canvas
+          ref={canvasRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          className={`absolute inset-0 w-full h-full cursor-pointer z-10 block transition-opacity duration-700 ${
+            isScratched ? 'opacity-0 pointer-events-none' : 'opacity-100 touch-none'
+          }`}
+          style={{ touchAction: 'none' }}
+        />
       </div>
 
       {/* Progress & Controls */}
